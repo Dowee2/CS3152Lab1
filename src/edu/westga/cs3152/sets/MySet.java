@@ -64,6 +64,9 @@ public class MySet<E> implements Set<E> {
 
     @Override
     public boolean contains(Object element) {
+        if (element == null) {
+           throw new IllegalArgumentException("Element cannot be null"); 
+        }
         return this.elements.contains(element);
     }
 
