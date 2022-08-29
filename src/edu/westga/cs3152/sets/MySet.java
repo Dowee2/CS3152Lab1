@@ -72,12 +72,18 @@ public class MySet<E> implements Set<E> {
 
     @Override
     public boolean add(Object element) {
+        if (element == null) {
+            throw new IllegalArgumentException("Element cannot be null"); 
+         }
         return this.elements.add((E) element);
     }
 
     @Override
     public boolean remove(Object element) {
-        return this.elements.remove(element);
+        if (element == null) {
+            throw new IllegalArgumentException("Element cannot be null"); 
+         }
+        return this.elements.remove((E) element);
     }
 
     @Override
