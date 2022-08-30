@@ -66,7 +66,7 @@ public class TestIsProperSubsetOf {
     }
 
     @Test
-    public void testSubsetSameSizeSetRepeatElements() {
+    public void testIsProperSubsetSameSizeSetRepeatElements() {
         MySet<String> set1 = new MySet<String>();
 		MySet<String> set2 = new MySet<String>();
 
@@ -79,11 +79,11 @@ public class TestIsProperSubsetOf {
         set2.add("B");
         set2.add("C");
 
-        assertTrue(set1.isProperSubsetOf(set2));
+        assertFalse(set1.isProperSubsetOf(set2));
     }
 
     @Test
-    public void testSubsetDifferentSizeSetRepeatElements() {
+    public void testIsProperSubsetDifferentSizeSetRepeatElements() {
         MySet<String> set1 = new MySet<String>();
 		MySet<String> set2 = new MySet<String>();
 
@@ -96,5 +96,14 @@ public class TestIsProperSubsetOf {
 
         assertTrue(set1.isProperSubsetOf(set2));
     }
+
+    @Test (expected=IllegalArgumentException.class) 
+	public void testNullArgument() {
+		MySet<String> set = new MySet<String>();
+				
+		set.add("A");
+		
+		set.isProperSubsetOf(null);
+	}
     
 }

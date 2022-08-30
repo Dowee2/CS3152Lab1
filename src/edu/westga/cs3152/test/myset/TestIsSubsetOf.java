@@ -91,7 +91,7 @@ public class TestIsSubsetOf {
         set2.add("B");
         set2.add("C");
 
-        assertTrue(set1.isSubsetOf(set2));
+        assertFalse(set1.isSubsetOf(set2));
     }
 
     @Test
@@ -109,5 +109,14 @@ public class TestIsSubsetOf {
 
         assertTrue(set1.isSubsetOf(set2));
     }
+
+    @Test (expected=IllegalArgumentException.class) 
+	public void testNullArgument() {
+		MySet<String> set = new MySet<String>();
+				
+		set.add("A");
+		
+		set.isSubsetOf(null);
+	}
 
 }

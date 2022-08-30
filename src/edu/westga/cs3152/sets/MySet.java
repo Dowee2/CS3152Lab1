@@ -28,6 +28,9 @@ public class MySet<E> implements Set<E> {
 
     @Override
     public boolean equals(Set set) {
+        if (set == null) {
+            throw new IllegalArgumentException("Set cannot be null"); 
+         }
         boolean equal = false;
         for (E element : this.elements) {
             if (set.contains(element)) {
@@ -45,6 +48,9 @@ public class MySet<E> implements Set<E> {
 
     @Override
     public boolean isSubsetOf(Set set) {
+        if (set == null) {
+            throw new IllegalArgumentException("Set cannot be null"); 
+         }
         boolean isSubsetOf = false;
         for (E element : this.elements) {
             if (set.contains(element)) {
@@ -53,12 +59,19 @@ public class MySet<E> implements Set<E> {
             else {
                 return false;
             }
+            if (this.size() > set.size()) {
+                return false;
+            }
         }
         return isSubsetOf;
     }
 
     @Override
     public boolean isProperSubsetOf(Set set) {
+        if (set == null) {
+            throw new IllegalArgumentException("Set cannot be null"); 
+         }
+
         boolean isPSubsetOf = false;
         for (E element : this.elements) {
             if (set.contains(element)) {
@@ -68,7 +81,7 @@ public class MySet<E> implements Set<E> {
                 return false;
             }
         }
-        if (this.size() == set.size()) {
+        if (this.size() >= set.size()) {
             return false;
         }
         return isPSubsetOf;
@@ -76,6 +89,10 @@ public class MySet<E> implements Set<E> {
 
     @Override
     public boolean isDisjoint(Set set) {
+        if (set == null) {
+            throw new IllegalArgumentException("Set cannot be null"); 
+         }
+
         for (E element : this.elements) {
             if(set.contains(element)){
                 return false;
@@ -110,7 +127,12 @@ public class MySet<E> implements Set<E> {
 
     @Override
     public Set union(Set set) {
+        if (set == null) {
+            throw new IllegalArgumentException("Set cannot be null"); 
+         }
+
         MySet<E> union = new MySet<E>();
+        
         for (E currElement : this.elements) {
             union.add(currElement);
         }
@@ -125,6 +147,10 @@ public class MySet<E> implements Set<E> {
 
     @Override
     public Set intersection(Set set) {
+        if (set == null) {
+            throw new IllegalArgumentException("Set cannot be null"); 
+         }
+
         Set<E> intersection = new MySet<E>();
         for (E element : this.elements) {
             if (set.contains(element)) {
@@ -136,6 +162,10 @@ public class MySet<E> implements Set<E> {
 
     @Override
     public Set difference(Set set) {
+        if (set == null) {
+            throw new IllegalArgumentException("Set cannot be null"); 
+         }
+         
         MySet<E> difference = new MySet<E>();
         for (E element : this.elements) {
             if (!set.contains(element)) {
