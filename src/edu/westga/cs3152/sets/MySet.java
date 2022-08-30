@@ -30,7 +30,7 @@ public class MySet<E> implements Set<E> {
     public boolean equals(Set set) {
         boolean equal = false;
         for (E element : this.elements) {
-            if (set.contains(element);) {
+            if (set.contains(element)) {
                 equal = true;
             }
             else {
@@ -47,7 +47,7 @@ public class MySet<E> implements Set<E> {
     public boolean isSubsetOf(Set set) {
         boolean isSubsetOf = false;
         for (E element : this.elements) {
-            if (set.contains(element);) {
+            if (set.contains(element)) {
                 isSubsetOf = true;
             }
             else {
@@ -61,7 +61,7 @@ public class MySet<E> implements Set<E> {
     public boolean isProperSubsetOf(Set set) {
         boolean isPSubsetOf = false;
         for (E element : this.elements) {
-            if (set.contains(element);) {
+            if (set.contains(element)) {
                 isPSubsetOf = true;
             }
             else {
