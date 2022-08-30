@@ -28,14 +28,31 @@ public class MySet<E> implements Set<E> {
 
     @Override
     public boolean equals(Set set) {
-        return elements.equals(set);
+        boolean equal = false;
+        for (E element : this.elements) {
+            if (set.contains(element);) {
+                equal = true;
+            }
+            else {
+                return false;
+            }
+        }
+        if (this.size() == set.size()) {
+            return false;
+        }
+        return equal;
     }
 
     @Override
     public boolean isSubsetOf(Set set) {
         boolean isSubsetOf = false;
         for (E element : this.elements) {
-            isSubsetOf = set.contains(element);
+            if (set.contains(element);) {
+                isSubsetOf = true;
+            }
+            else {
+                return false;
+            }
         }
         return isSubsetOf;
     }
@@ -44,7 +61,12 @@ public class MySet<E> implements Set<E> {
     public boolean isProperSubsetOf(Set set) {
         boolean isPSubsetOf = false;
         for (E element : this.elements) {
-            isPSubsetOf = set.contains(element);
+            if (set.contains(element);) {
+                isPSubsetOf = true;
+            }
+            else {
+                return false;
+            }
         }
         if (this.size() == set.size()) {
             return false;
