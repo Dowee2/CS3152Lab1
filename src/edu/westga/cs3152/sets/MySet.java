@@ -5,7 +5,7 @@ import java.util.Iterator;
 
 public class MySet<E> implements Set<E> {
 
-    ArrayList<E> elements;
+    public ArrayList<E> elements;
 
     public MySet() {
         super();
@@ -132,15 +132,17 @@ public class MySet<E> implements Set<E> {
          }
 
         MySet<E> union = new MySet<E>();
+        Iterator<E> it = set.iterator();
         
         for (E currElement : this.elements) {
             union.add(currElement);
         }
-        while (set.iterator().hasNext()) {
-            E currElement = (E)set.iterator().next();
+        while (it.hasNext()) {
+            E currElement = (E) it.next();
             if (!union.contains(currElement)) {
                 union.add(currElement);
             }
+            set.iterator().next();
         }
         return union;
     }
@@ -153,7 +155,7 @@ public class MySet<E> implements Set<E> {
 
         Set<E> intersection = new MySet<E>();
         for (E element : this.elements) {
-            if (set.contains(element)) {
+            if (set.contains(element) &&!intersection.contains(element)) {
                 intersection.add(element);
             }
         }
@@ -167,12 +169,27 @@ public class MySet<E> implements Set<E> {
          }
          
         MySet<E> difference = new MySet<E>();
+
+        for (E currElement : this.elements) {
+            difference.add(currElement);
+        }
+
         for (E element : this.elements) {
-            if (!set.contains(element)) {
+            if (set.contains(element)) {
                 difference.remove(element);
             }
         }
         return difference;
+    }
+
+    public String toString() {
+        String elements = "";
+
+        for (E element : this.elements) {
+            elements += element.toString();
+        }
+        
+        return elements;
     }
     
 }

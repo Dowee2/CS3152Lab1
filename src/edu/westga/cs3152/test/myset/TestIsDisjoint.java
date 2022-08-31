@@ -39,6 +39,8 @@ public class TestIsDisjoint {
         set2.add("E");
         set2.add("A");
 
+
+
         assertTrue(set1.isDisjoint(set2));
     }
 
@@ -69,4 +71,13 @@ public class TestIsDisjoint {
 
         assertFalse(set1.isDisjoint(set2));
     }
+
+    @Test (expected=IllegalArgumentException.class) 
+	public void testNullArgument() {
+		MySet<String> set = new MySet<String>();
+				
+		set.add("A");
+		
+		set.isDisjoint(null);
+	}
 }
