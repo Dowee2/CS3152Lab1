@@ -47,7 +47,7 @@ public class TestIsProperSubsetOf {
         set2.add("B");
         set2.add("C");
 
-        assertTrue(set1.isProperSubsetOf(set2));
+        assertFalse(set1.isProperSubsetOf(set2));
     }
 
     @Test

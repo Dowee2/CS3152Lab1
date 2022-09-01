@@ -63,8 +63,8 @@ public class TestDifference {
         MySet<String> set2 = new MySet<String>();
 
         set1.add("C");
-        set1.add("C");
         set1.add("E");
+        set1.add("C");
 
         set2.add("F");
         set2.add("B");

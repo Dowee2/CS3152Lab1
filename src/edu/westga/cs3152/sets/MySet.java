@@ -3,6 +3,8 @@ package edu.westga.cs3152.sets;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import javax.lang.model.element.Element;
+
 public class MySet<E> implements Set<E> {
 
     public ArrayList<E> elements;
@@ -31,19 +33,20 @@ public class MySet<E> implements Set<E> {
         if (set == null) {
             throw new IllegalArgumentException("Set cannot be null"); 
          }
-        boolean equal = false;
-        for (E element : this.elements) {
-            if (set.contains(element)) {
-                equal = true;
-            }
-            else {
-                return false;
-            }
-        }
-        if (this.size() == set.size()) {
+
+         if (this.size() == set.size()) {
             return false;
         }
-        return equal;
+
+         Iterator<E> it = set.iterator();
+         while (it.hasNext()) {
+             E currentElement = it.next();
+             if (!this.isContainedIn(currentElement)) {
+                 return false;
+             }
+         }
+        
+        return true;
     }
 
     @Override
@@ -51,19 +54,17 @@ public class MySet<E> implements Set<E> {
         if (set == null) {
             throw new IllegalArgumentException("Set cannot be null"); 
          }
-        boolean isSubsetOf = false;
-        for (E element : this.elements) {
-            if (set.contains(element)) {
-                isSubsetOf = true;
-            }
-            else {
-                return false;
-            }
-            if (this.size() > set.size()) {
+         if (this.size() > set.size()) {
+            return false;
+        }
+        Iterator<E> it = set.iterator();
+        while (it.hasNext()) {
+            E currentElement = it.next();
+            if (this.isContainedIn(currentElement)) {
                 return false;
             }
         }
-        return isSubsetOf;
+        return true;
     }
 
     @Override
@@ -72,19 +73,17 @@ public class MySet<E> implements Set<E> {
             throw new IllegalArgumentException("Set cannot be null"); 
          }
 
-        boolean isPSubsetOf = false;
-        for (E element : this.elements) {
-            if (set.contains(element)) {
-                isPSubsetOf = true;
-            }
-            else {
+         if (this.size() >= set.size()) {
+            return false;
+        }
+        Iterator<E> it = set.iterator();
+        while (it.hasNext()) {
+            E currentElement = it.next();
+            if (this.isContainedIn(currentElement)) {
                 return false;
             }
         }
-        if (this.size() >= set.size()) {
-            return false;
-        }
-        return isPSubsetOf;
+        return true;
     }
 
     @Override
@@ -93,11 +92,16 @@ public class MySet<E> implements Set<E> {
             throw new IllegalArgumentException("Set cannot be null"); 
          }
 
-        for (E element : this.elements) {
-            if(set.contains(element)){
-                return false;
+        Iterator<E> it = set.iterator();
+        while (it.hasNext()) {
+            E currentElement = it.next();
+            for (E element : this.elements) {
+                if(currentElement.equals(element)){
+                    return false;
+                }
             }
         }
+        
         return true;
     }
 
@@ -138,11 +142,10 @@ public class MySet<E> implements Set<E> {
             union.add(currElement);
         }
         while (it.hasNext()) {
-            E currElement = (E) it.next();
-            if (!union.contains(currElement)) {
-                union.add(currElement);
+            E currentElement = it.next();
+            if (!this.isContainedIn(currentElement)) {
+                union.add(currentElement);
             }
-            set.iterator().next();
         }
         return union;
     }
@@ -154,9 +157,11 @@ public class MySet<E> implements Set<E> {
          }
 
         Set<E> intersection = new MySet<E>();
-        for (E element : this.elements) {
-            if (set.contains(element) &&!intersection.contains(element)) {
-                intersection.add(element);
+        Iterator<E> it = set.iterator();
+        while (it.hasNext()) {
+            E currentElement = it.next();
+            if (this.isContainedIn(currentElement) &&!intersection.contains(currentElement)) {
+                intersection.add(currentElement);
             }
         }
         return intersection;
@@ -169,14 +174,10 @@ public class MySet<E> implements Set<E> {
          }
          
         MySet<E> difference = new MySet<E>();
-
         for (E currElement : this.elements) {
-            difference.add(currElement);
-        }
-
-        for (E element : this.elements) {
-            if (set.contains(element)) {
-                difference.remove(element);
+            Iterator<E> it = set.iterator();
+            if (!this.isContainedIn(it, currElement)) {
+                difference.add(currElement);
             }
         }
         return difference;
@@ -191,5 +192,24 @@ public class MySet<E> implements Set<E> {
         
         return elements;
     }
-    
+    private boolean isContainedIn(E element) {
+        for (E currElement : this.elements) {
+            System.out.println(element + " " + currElement);
+            if (currElement.equals(element)) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+
+    private boolean isContainedIn(Iterator<E> it,E element) {
+        while (it.hasNext()) {
+            E currElement = it.next();
+            if (currElement.equals(element)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
