@@ -34,7 +34,7 @@ public class MySet<E> implements Set<E> {
             throw new IllegalArgumentException("Set cannot be null"); 
          }
 
-         if (this.size() == set.size()) {
+         if (!(this.size() == set.size())) {
             return false;
         }
 
@@ -57,10 +57,9 @@ public class MySet<E> implements Set<E> {
          if (this.size() > set.size()) {
             return false;
         }
-        Iterator<E> it = set.iterator();
-        while (it.hasNext()) {
-            E currentElement = it.next();
-            if (this.isContainedIn(currentElement)) {
+        for (E currElement : this.elements) {
+            Iterator<E> it = set.iterator();
+            if (!this.imContainedIn(it, currElement)) {
                 return false;
             }
         }
@@ -76,10 +75,9 @@ public class MySet<E> implements Set<E> {
          if (this.size() >= set.size()) {
             return false;
         }
-        Iterator<E> it = set.iterator();
-        while (it.hasNext()) {
-            E currentElement = it.next();
-            if (this.isContainedIn(currentElement)) {
+        for (E currElement : this.elements) {
+            Iterator<E> it = set.iterator();
+            if (!this.imContainedIn(it, currElement)) {
                 return false;
             }
         }
@@ -176,7 +174,7 @@ public class MySet<E> implements Set<E> {
         MySet<E> difference = new MySet<E>();
         for (E currElement : this.elements) {
             Iterator<E> it = set.iterator();
-            if (!this.isContainedIn(it, currElement)) {
+            if (!this.imContainedIn(it, currElement)) {
                 difference.add(currElement);
             }
         }
@@ -192,9 +190,14 @@ public class MySet<E> implements Set<E> {
         
         return elements;
     }
+
+    /**
+     * Call this when you would like to test if elements in another are contained in this set
+     * 
+     */
     private boolean isContainedIn(E element) {
         for (E currElement : this.elements) {
-            System.out.println(element + " " + currElement);
+            
             if (currElement.equals(element)) {
                 return true;
             }
@@ -203,9 +206,15 @@ public class MySet<E> implements Set<E> {
         return false;
     }
 
-    private boolean isContainedIn(Iterator<E> it,E element) {
+    /**
+     * Call this when you would like to test if elements in this set are contained in another set
+     * 
+     * 
+     */
+    private boolean imContainedIn(Iterator<E> it,E element) {
         while (it.hasNext()) {
             E currElement = it.next();
+            System.out.println("Set1: " + element + " " +  currElement);
             if (currElement.equals(element)) {
                 return true;
             }

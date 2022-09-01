@@ -68,13 +68,14 @@ public class TestIsSubsetOf {
 		MySet<String> set2 = new MySet<String>();
 
 		set1.add("A");
+        set1.add("F");
         set1.add("C");
 
         set2.add("A");
         set2.add("B");
         set2.add("C");
 
-        assertTrue(set1.isSubsetOf(set2));
+        assertFalse(set1.isSubsetOf(set2));
     }
 
     @Test
@@ -85,13 +86,12 @@ public class TestIsSubsetOf {
 		set1.add("A");
         set1.add("C");
         set1.add("C");
-        set1.add("A");
 
         set2.add("A");
         set2.add("B");
         set2.add("C");
 
-        assertFalse(set1.isSubsetOf(set2));
+        assertTrue(set1.isSubsetOf(set2));
     }
 
     @Test
@@ -106,6 +106,7 @@ public class TestIsSubsetOf {
         set2.add("A");
         set2.add("B");
         set2.add("C");
+        set2.add("F");
 
         assertTrue(set1.isSubsetOf(set2));
     }
